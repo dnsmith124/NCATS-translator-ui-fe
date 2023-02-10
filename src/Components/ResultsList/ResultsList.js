@@ -214,6 +214,15 @@ const ResultsList = ({loading}) => {
     const response = await fetch('/creative_result', requestOptions)
       .then(response => response.json())
       .then(data => {
+        if(data.status === 'error') {
+          if(formattedResults.length <= 0) {
+            setIsError(true);
+            setIsFetchingARAStatus(false);
+          }
+          if(formattedResults.length > 0) {
+            setIsFetchingARAStatus(false);
+          }
+        }
         console.log('New results:', data);
         // if we've already gotten results before, set freshRawResults instead to 
         // prevent original results from being overwritten
